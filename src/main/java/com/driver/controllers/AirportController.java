@@ -54,7 +54,7 @@ public class AirportController {
 
         //Calculate the total number of people who have flights on that day on a particular airport
         //This includes both the people who have come for a flight and who have landed on an airport after their flight
-        return airportService.getNumberOfPeopleOn(airportName);
+        return airportService.getNumberOfPeopleOn(date , airportName);
 
     }
 
@@ -126,12 +126,7 @@ public class AirportController {
 
         //We need to get the starting airportName from where the flight will be taking off (Hint think of City variable if that can be of some use)
         //return null incase the flightId is invalid or you are not able to find the airportName
-        try{
-            return airportService.getAirportNameFromFlightId(flightId);
-        }
-        catch (Exception ex){
-            return null;
-        }
+        return airportService.getAirportNameFromFlightId(flightId);
     }
 
 
@@ -142,8 +137,7 @@ public class AirportController {
         //That is of all the passengers that have booked a flight till now and then calculate the revenue
         //Revenue will also decrease if some passenger cancels the flight
 
-
-        return 0;
+        return airportService.calculateRevenueOfAFlight(flightId);
     }
 
 

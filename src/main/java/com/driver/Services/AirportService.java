@@ -6,7 +6,8 @@ import com.driver.model.City;
 import com.driver.model.Flight;
 import com.driver.model.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.Date;
 
 public class AirportService {
     @Autowired
@@ -49,7 +50,7 @@ public class AirportService {
         airportRepository.addFlight(flight);
     }
 
-    public String getAirportNameFromFlightId(Integer flightId) throws Exception{
+    public String getAirportNameFromFlightId(Integer flightId){
         return airportRepository.getAirportNameFromFlightId(flightId);
     }
 
@@ -57,11 +58,15 @@ public class AirportService {
         return airportRepository.calculateFlightFare(flightId);
     }
 
-    public int getNumberOfPeopleOn(String airportName) {
-        return airportRepository.getNumberOfPeopleOn(airportName);
+    public int getNumberOfPeopleOn(Date date, String airportName) {
+        return airportRepository.getNumberOfPeopleOn(date , airportName);
     }
 
     public int countOfBookingsDoneByPassengerAllCombined(Integer passengerId) {
         return airportRepository.countOfBookingsDoneByPassengerAllCombined(passengerId);
+    }
+
+    public int calculateRevenueOfAFlight(Integer flightId) {
+        return airportRepository.calculateRevenueOfAFlight(flightId);
     }
 }
