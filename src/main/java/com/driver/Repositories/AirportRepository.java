@@ -54,13 +54,11 @@ public class AirportRepository {
         return shortestDuration;
     }
 
-    public boolean addPassenger(Passenger passenger) {
-        if(Passengers.containsKey(passenger.getPassengerId())) return false;
+    public void addPassenger(Passenger passenger) {
         Passengers.put(passenger.getPassengerId(), passenger);
-        return true;
     }
 
-    public void bookATicket(Integer flightId, Integer passengerId) throws Exception {
+    public String bookATicket(Integer flightId, Integer passengerId) {
          Flight flight = Flights.get(flightId);
          int maxcapacity = flight.getMaxCapacity();
          Set<Integer> set = new HashSet<>();
@@ -69,8 +67,8 @@ public class AirportRepository {
          }
 
          int capacity = set.size();
-         if(capacity == maxcapacity) throw new Exception("Max capacity reached");
-         else if(set.contains(passengerId))throw new Exception("passanger already exist");
+         if(capacity == maxcapacity) return "FAILURE";
+         else if(set.contains(passengerId))return "FAILURE";
          int fare=calculateFlightFare(flightId);
          paymentMap.put(passengerId,fare);
          fare+=revenueMap.getOrDefault(flightId,0);
@@ -78,63 +76,15 @@ public class AirportRepository {
          set.add(passengerId);
          set.add(passengerId);
          Tickets.put(flightId, set);
-
-//        if(Tickets.containsKey(flightId)){
-//            if(Flights.get(flightId).getMaxCapacity() == Tickets.get(flightId).size()){
-//                throw new Exception("Max capacity reached");
-//            }
-//
-//            if(!Flights.containsKey(flightId) || !Passengers.containsKey(passengerId)){
-//                throw new Exception("flight or passenger or both does not exist in database");
-//            }
-//
-//            if(Tickets.get(flightId).contains(passengerId)){
-//                throw new Exception("Passenger already booked");
-//            }
-//
-//            Set<Integer> oldset = Tickets.get(flightId);
-//            oldset.add(passengerId);
-//            Tickets.put(flightId, oldset);
-//        }
-//        else{
-//            Set<Integer> newset = new HashSet<>();
-//            newset.add(passengerId);
-//            Tickets.put(flightId, newset);
-//        }
+         return "SUCCESS";
     }
 
 
-//    public void bookATicket(Integer flightId, Integer passengerId) throws Exception {
-//        if(!Flights.containsKey(flightId) || !Passengers.containsKey(passengerId)){
-//            throw new Exception("flight or passenger or both does not exist in database");
-//        }
-//
-//        if(Kets.containsKey(passengerId)){
-//            throw new Exception("Passenger already booked");
-//        }
-//
-//        if(Tic.containsKey(flightId)){
-//            if(Tic.get(flightId).size() >= Flights.get(flightId).getMaxCapacity()){
-//                throw new Exception("Max capacity reached");
-//            }
-//
-//            ArrayList<Integer> oldList = Tic.get(flightId);
-//            oldList.add(passengerId);
-//            Tic.put(flightId, oldList);
-//            Kets.put(passengerId, flightId);
-//        }
-//        else{
-//            ArrayList<Integer> newList = new ArrayList<>();
-//            newList.add(passengerId);
-//            Tic.put(flightId, newList);
-//            Kets.put(passengerId, flightId);
-//        }
-//    }
 
-    public void cancelATicket(Integer flightId, Integer passengerId) throws Exception {
+    public String cancelATicket(Integer flightId, Integer passengerId)  {
 
         if(!Tickets.containsKey(flightId) || !Tickets.get(flightId).contains(passengerId)){
-            throw new Exception("flight or passenger or both does not exist in {Tickets} database");
+            return "FAILURE";
         }
 
         Tickets.get(flightId).remove(passengerId);
@@ -142,25 +92,11 @@ public class AirportRepository {
         paymentMap.remove(passengerId);
         int revenue=revenueMap.getOrDefault(flightId,0);
         revenueMap.put(flightId,revenue-fare);
-
-//        if(!Tic.containsKey(flightId) || !Kets.containsKey(passengerId)){
-//            throw new Exception("flight or passenger or both does not exist in {Tickets} database");
-//        }
-//        if(Kets.containsKey(passengerId) && Kets.get(passengerId) != flightId){
-//            throw new Exception("This particular passenger has not booked this flight");
-//        }
-//
-//        for(int i : Tic.get(flightId)){
-//            if(Tic.get(flightId).get(i) == passengerId)Tic.get(flightId).remove(i);
-//        }
-//
-//        Kets.remove(passengerId);
+        return "SUCCESS";
     }
 
-    public void addFlight(Flight flight) throws Exception {
-        if(Flights.containsKey(flight.getFlightId())){
-            throw new Exception("flight already exist");
-        }
+
+    public void addFlight(Flight flight) {
         Flights.put(flight.getFlightId(), flight);
     }
 

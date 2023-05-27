@@ -77,9 +77,7 @@ public class AirportController {
         //return a String "FAILURE"
         //Also if the passenger has already booked a flight then also return "FAILURE".
         //else if you are able to book a ticket then return "SUCCESS"
-        Boolean ans = airportService.bookATicket(flightId, passengerId);
-        if(ans == false) return "FAILURE";
-        return "SUCCESS";
+        airportService.bookATicket(flightId, passengerId);
     }
 
     @PutMapping("/cancel-a-ticket")
@@ -89,13 +87,8 @@ public class AirportController {
         // then return a "FAILURE" message
         // Otherwise return a "SUCCESS" message
         // and also cancel the ticket that passenger had booked earlier on the given flightId
-        try{
-            airportService.cancelATicket(flightId, passengerId);
-            return "SUCCESS";
-        }
-        catch (Exception ex){
-            return "FAILURE";
-        }
+
+        return airportService.cancelATicket(flightId, passengerId);
     }
 
 
@@ -111,13 +104,8 @@ public class AirportController {
     public String addFlight(@RequestBody Flight flight){
 
         //Return a "SUCCESS" message string after adding a flight.
-        try{
-            airportService.addFlight(flight);
-            return "SUCCESS";
-        }
-        catch (Exception ex){
-            return "FAILURE";
-        }
+        airportService.addFlight(flight);
+        return "SUCCESS";
     }
 
 

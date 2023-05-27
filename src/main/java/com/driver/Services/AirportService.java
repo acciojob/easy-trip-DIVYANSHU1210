@@ -25,28 +25,18 @@ public class AirportService {
     }
 
     public void addPassenger(Passenger passenger) throws Exception {
-        Boolean ans =  airportRepository.addPassenger(passenger);
-        if(ans == false){
-            throw new Exception("Passenger already exist");
-        }
+        airportRepository.addPassenger(passenger);
     }
 
-    public Boolean bookATicket(Integer flightId, Integer passengerId) {
-        try{
-            airportRepository.bookATicket(flightId, passengerId);
-            return true;
-        }
-        catch(Exception ex){
-            return false;
-        }
-
+    public String bookATicket(Integer flightId, Integer passengerId) {
+        return airportRepository.bookATicket(flightId, passengerId);
     }
 
-    public void cancelATicket(Integer flightId, Integer passengerId) throws Exception {
-        airportRepository.cancelATicket(flightId, passengerId);
+    public String cancelATicket(Integer flightId, Integer passengerId) {
+        return airportRepository.cancelATicket(flightId, passengerId);
     }
 
-    public void addFlight(Flight flight) throws Exception {
+    public void addFlight(Flight flight)  {
         airportRepository.addFlight(flight);
     }
 
