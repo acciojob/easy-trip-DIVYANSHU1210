@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 
 public class AirportService {
-    @Autowired
-    AirportRepository airportRepository;
+
+    AirportRepository airportRepository = new AirportRepository();
     public void addAirport(Airport airport) {
         airportRepository.addAirport(airport);
     }
