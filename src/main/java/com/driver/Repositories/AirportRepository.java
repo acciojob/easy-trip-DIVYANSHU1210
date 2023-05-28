@@ -183,7 +183,7 @@ public class AirportRepository {
         for(Set<Integer>passengers  : Tickets.values()){
             if(passengers.contains(passengerId))cnt++;
         }
-        return 0;
+        return cnt;
     }
 
     public int calculateRevenueOfAFlight(Integer flightId) {
