@@ -74,54 +74,36 @@ public class AirportRepository {
          fare+=revenueMap.getOrDefault(flightId,0);
          revenueMap.put(flightId,fare);
          set.add(passengerId);
-         set.add(passengerId);
          Tickets.put(flightId, set);
          return "SUCCESS";
-
-//        Flight flight=Flights.get(flightId);
-//        int maxcapacity=flight.getMaxCapacity();
-//        Set<Integer> list= new HashSet<>();
-//        if(Tickets.containsKey(flightId)){
-//            list=Tickets.get(flightId);
-//        }
-//        int capacity=list.size();
-//        if(capacity==maxcapacity) return "FAILURE";
-//        else if(list.contains(passengerId)) return "FAILURE";
-//        int fare=calculateFlightFare(flightId);
-//        paymentMap.put(passengerId,fare);
-//        fare+=revenueMap.getOrDefault(flightId,0);
-//        revenueMap.put(flightId,fare);
-//        list.add(passengerId);
-//        Tickets.put(flightId,list);
-//        return "SUCCESS";
     }
 
 
 
     public String cancelATicket(Integer flightId, Integer passengerId)  {
-        Set<Integer> list= Tickets.get(flightId);
-        if(list.contains(passengerId)){
-            list.remove(passengerId);
-            int fare=paymentMap.getOrDefault(passengerId,0);
-            paymentMap.remove(passengerId);
-            int revenue=revenueMap.getOrDefault(flightId,0);
-            revenueMap.put(flightId,revenue-fare);
-            return "SUCCESS";
-        }
-        return "FAILURE";
-
-
-
-//        if(!Tickets.containsKey(flightId) || !Tickets.get(flightId).contains(passengerId)){
-//            return "FAILURE";
+//        Set<Integer> list= Tickets.get(flightId);
+//        if(list.contains(passengerId)){
+//            list.remove(passengerId);
+//            int fare=paymentMap.getOrDefault(passengerId,0);
+//            paymentMap.remove(passengerId);
+//            int revenue=revenueMap.getOrDefault(flightId,0);
+//            revenueMap.put(flightId,revenue-fare);
+//            return "SUCCESS";
 //        }
-//
-//        Tickets.get(flightId).remove(passengerId);
-//        int fare=paymentMap.getOrDefault(passengerId,0);
-//        paymentMap.remove(passengerId);
-//        int revenue=revenueMap.getOrDefault(flightId,0);
-//        revenueMap.put(flightId,revenue-fare);
-//        return "SUCCESS";
+//        return "FAILURE";
+
+
+
+        if(!Tickets.containsKey(flightId) || !Tickets.get(flightId).contains(passengerId)){
+            return "FAILURE";
+        }
+
+        Tickets.get(flightId).remove(passengerId);
+        int fare=paymentMap.getOrDefault(passengerId,0);
+        paymentMap.remove(passengerId);
+        int revenue=revenueMap.getOrDefault(flightId,0);
+        revenueMap.put(flightId,revenue-fare);
+        return "SUCCESS";
     }
 
 
