@@ -179,20 +179,11 @@ public class AirportRepository {
     }
 
     public int countOfBookingsDoneByPassengerAllCombined(Integer passengerId) {
-//        int cnt = 0;
-//        for(Set<Integer>passengers  : Tickets.values()){
-//            if(passengers.contains(passengerId))cnt++;
-//        }
-//        return cnt;
-
-        int count=0;
-        for(Integer flightId:Tickets.keySet()){
-            Set<Integer> list=Tickets.get(flightId);
-            if(list.contains(passengerId)){
-                count++;
-            }
+        int cnt = 0;
+        for(Set<Integer>passengers  : Tickets.values()){
+            if(passengers.contains(passengerId))cnt++;
         }
-        return count;
+        return 0;
     }
 
     public int calculateRevenueOfAFlight(Integer flightId) {
