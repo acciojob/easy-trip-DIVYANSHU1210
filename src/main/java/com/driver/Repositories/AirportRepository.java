@@ -112,70 +112,70 @@ public class AirportRepository {
     }
 
     public String getAirportNameFromFlightId(Integer flightId)  {
-        if(!Flights.containsKey(flightId)) return null;
-        Flight flight= Flights.get(flightId);
-        City city=flight.getFromCity();
-        for (String airportname:Airports.keySet()){
-            Airport airport=Airports.get(airportname);
-            if(city.equals(airport.getCity())){
-                return airportname;
-            }
-        }
-        return null;
-//        if(Flights.containsKey(flightId)){
-//            City city = Flights.get(flightId).getFromCity();
-//            for(Airport airport : Airports.values()){
-//                if(airport.getCity().equals(city))
-//                    return airport.getAirportName();
+//        if(!Flights.containsKey(flightId)) return null;
+//        Flight flight= Flights.get(flightId);
+//        City city=flight.getFromCity();
+//        for (String airportname:Airports.keySet()){
+//            Airport airport=Airports.get(airportname);
+//            if(city.equals(airport.getCity())){
+//                return airportname;
 //            }
 //        }
 //        return null;
+        if(Flights.containsKey(flightId)){
+            City city = Flights.get(flightId).getFromCity();
+            for(Airport airport : Airports.values()){
+                if(airport.getCity().equals(city))
+                    return airport.getAirportName();
+            }
+        }
+        return null;
     }
 
     public int calculateFlightFare(Integer flightId) {
-//        int fare = 3000;
-//        int alreadyBooked = 0;
-//        if(Tickets.containsKey(flightId))
-//            alreadyBooked = Tickets.get(flightId).size();
-//        return (fare + (alreadyBooked*50));
-        int fare=3000;
-        int alreadyBooked=0;
+        int fare = 3000;
+        int alreadyBooked = 0;
         if(Tickets.containsKey(flightId))
-            alreadyBooked=Tickets.get(flightId).size();
-        return (fare+(alreadyBooked*50));
+            alreadyBooked = Tickets.get(flightId).size();
+        return (fare + (alreadyBooked*50));
+//        int fare=3000;
+//        int alreadyBooked=0;
+//        if(Tickets.containsKey(flightId))
+//            alreadyBooked=Tickets.get(flightId).size();
+//        return (fare+(alreadyBooked*50));
     }
 
     public int getNumberOfPeopleOn(Date date, String airportName) {
-//        int noOfPeople = 0;
-//        Airport airport = Airports.get(airportName);
-//        if(airport!=null){
-//            City city = Airports.get(airportName).getCity();
-//            for(Flight flight : Flights.values()){
-//                if(date.equals(flight.getFlightDate())){
-//                    if(flight.getFromCity().equals(city) || flight.getToCity().equals(city)){
-//                        noOfPeople += Tickets.get(flight.getFlightId()).size();
-//                    }
-//                }
-//
-//            }
-//        }
-//        return noOfPeople;
-        Airport airport=Airports.get(airportName);
-        int count=0;
+        int noOfPeople = 0;
+        Airport airport = Airports.get(airportName);
         if(airport!=null){
-            City city=airport.getCity();
+            City city = Airports.get(airportName).getCity();
             for(Flight flight : Flights.values()){
                 if(date.equals(flight.getFlightDate())){
-                    if(city.equals(flight.getToCity()) || city.equals(flight.getFromCity())){
-                        Integer flightId=flight.getFlightId();
-                        Set<Integer> list=Tickets.get(flightId);
-                        if(list!=null){
-                            count+= list.size();
-                        }
+                    if(flight.getFromCity().equals(city) || flight.getToCity().equals(city)){
+                        noOfPeople += Tickets.get(flight.getFlightId()).size();
                     }
                 }
-            }}
-        return count;
+
+            }
+        }
+        return noOfPeople;
+//        Airport airport=Airports.get(airportName);
+//        int count=0;
+//        if(airport!=null){
+//            City city=airport.getCity();
+//            for(Flight flight : Flights.values()){
+//                if(date.equals(flight.getFlightDate())){
+//                    if(city.equals(flight.getToCity()) || city.equals(flight.getFromCity())){
+//                        Integer flightId=flight.getFlightId();
+//                        Set<Integer> list=Tickets.get(flightId);
+//                        if(list!=null){
+//                            count+= list.size();
+//                        }
+//                    }
+//                }
+//            }}
+//        return count;
     }
 
     public int countOfBookingsDoneByPassengerAllCombined(Integer passengerId) {
