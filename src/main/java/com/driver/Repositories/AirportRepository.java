@@ -30,16 +30,6 @@ public class AirportRepository {
 
 
     public String getLargetAirportName() {
-//        String answer="";
-//        int ans=0;
-//        for(String name:Airports.keySet()){
-//            int co=Airports.get(name).getNoOfTerminals();
-//            if(co>ans){
-//                ans=co;
-//                answer=name;
-//            }
-//        }
-//        return answer;
         int maxTerminals = 0;
         String largestAirport = "";
         for(String key: Airports.keySet()){
@@ -62,15 +52,6 @@ public class AirportRepository {
         }
         if(shortestDuration == Integer.MAX_VALUE)return -1;
         return shortestDuration;
-//        double duration=Integer.MAX_VALUE;
-//        for (Flight flight :Flights.values()){
-//            if(fromCity.equals(flight.getFromCity()) && toCity.equals(flight.getToCity())){
-//                if(duration>flight.getDuration()){
-//                    duration=flight.getDuration();
-//                }
-//            }
-//        }
-//        return duration==Integer.MAX_VALUE?-1:duration;
     }
 
     public void addPassenger(Passenger passenger) {
@@ -78,41 +59,41 @@ public class AirportRepository {
     }
 
     public String bookATicket(Integer flightId, Integer passengerId) {
-//         Flight flight = Flights.get(flightId);
-//         int maxcapacity = flight.getMaxCapacity();
-//         Set<Integer> set = new HashSet<>();
-//         if(Tickets.containsKey(flightId)){
-//             set = Tickets.get(flightId);
-//         }
-//
-//         int capacity = set.size();
-//         if(capacity == maxcapacity) return "FAILURE";
-//         else if(set.contains(passengerId))return "FAILURE";
-//         int fare=calculateFlightFare(flightId);
-//         paymentMap.put(passengerId,fare);
-//         fare+=revenueMap.getOrDefault(flightId,0);
-//         revenueMap.put(flightId,fare);
-//         set.add(passengerId);
-//         set.add(passengerId);
-//         Tickets.put(flightId, set);
-//         return "SUCCESS";
+         Flight flight = Flights.get(flightId);
+         int maxcapacity = flight.getMaxCapacity();
+         Set<Integer> set = new HashSet<>();
+         if(Tickets.containsKey(flightId)){
+             set = Tickets.get(flightId);
+         }
 
-        Flight flight=Flights.get(flightId);
-        int maxcapacity=flight.getMaxCapacity();
-        Set<Integer> list= new HashSet<>();
-        if(Tickets.containsKey(flightId)){
-            list=Tickets.get(flightId);
-        }
-        int capacity=list.size();
-        if(capacity==maxcapacity) return "FAILURE";
-        else if(list.contains(passengerId)) return "FAILURE";
-        int fare=calculateFlightFare(flightId);
-        paymentMap.put(passengerId,fare);
-        fare+=revenueMap.getOrDefault(flightId,0);
-        revenueMap.put(flightId,fare);
-        list.add(passengerId);
-        Tickets.put(flightId,list);
-        return "SUCCESS";
+         int capacity = set.size();
+         if(capacity == maxcapacity) return "FAILURE";
+         else if(set.contains(passengerId))return "FAILURE";
+         int fare=calculateFlightFare(flightId);
+         paymentMap.put(passengerId,fare);
+         fare+=revenueMap.getOrDefault(flightId,0);
+         revenueMap.put(flightId,fare);
+         set.add(passengerId);
+         set.add(passengerId);
+         Tickets.put(flightId, set);
+         return "SUCCESS";
+
+//        Flight flight=Flights.get(flightId);
+//        int maxcapacity=flight.getMaxCapacity();
+//        Set<Integer> list= new HashSet<>();
+//        if(Tickets.containsKey(flightId)){
+//            list=Tickets.get(flightId);
+//        }
+//        int capacity=list.size();
+//        if(capacity==maxcapacity) return "FAILURE";
+//        else if(list.contains(passengerId)) return "FAILURE";
+//        int fare=calculateFlightFare(flightId);
+//        paymentMap.put(passengerId,fare);
+//        fare+=revenueMap.getOrDefault(flightId,0);
+//        revenueMap.put(flightId,fare);
+//        list.add(passengerId);
+//        Tickets.put(flightId,list);
+//        return "SUCCESS";
     }
 
 
